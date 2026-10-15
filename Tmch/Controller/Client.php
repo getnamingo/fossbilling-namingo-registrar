@@ -1,13 +1,17 @@
 <?php
-/**
- * FOSSBilling-TMCH module
+
+/*
+ * Namingo Registrar
  *
- * Written in 2024–2026 by Taras Kondratyuk (https://namingo.org)
- * Based on example modules and inspired by existing modules of FOSSBilling
- * (https://www.fossbilling.org) and BoxBilling.
+ * Copyright (c) 2023-2026 Taras Kondratyuk
+ * Copyright (c) 2025-2026 Namingo contributors
+ * Copyright (c) 2026 Terbora Ltd.
  *
- * @license Apache-2.0
- * @see https://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under the Apache License, Version 2.0.
+ * May contain portions of FOSSBilling sample modules, also licensed under Apache-2.0.
+ * See the LICENSE file for the full license text.
+ *
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 namespace Box\Mod\Tmch\Controller;
@@ -26,13 +30,6 @@ class Client implements \FOSSBilling\InjectionAwareInterface
         return $this->di;
     }
 
-    /**
-     * Methods maps client areas urls to corresponding methods
-     * Always use your module prefix to avoid conflicts with other modules
-     * in future.
-     *
-     * @param \Box_App $app - returned by reference
-     */
     public function register(\Box_App &$app): void
     {
         $app->get('/tmch', 'get_index', [], static::class);

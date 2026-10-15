@@ -1,17 +1,17 @@
 <?php
 
-/**
- * FOSSBilling.
+/*
+ * Namingo Registrar
  *
- * @copyright FOSSBilling (https://www.fossbilling.org)
- * @license   Apache-2.0
+ * Copyright (c) 2023-2026 Taras Kondratyuk
+ * Copyright (c) 2025-2026 Namingo contributors
+ * Copyright (c) 2026 Terbora Ltd.
  *
- * Copyright FOSSBilling 2022
- * This software may contain code previously used in the BoxBilling project.
- * Copyright BoxBilling, Inc 2011-2021
+ * Licensed under the Apache License, Version 2.0.
+ * May contain portions of FOSSBilling sample modules, also licensed under Apache-2.0.
+ * See the LICENSE file for the full license text.
  *
- * This source file is subject to the Apache-2.0 License that is bundled
- * with this source code in the file LICENSE
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 namespace Box\Mod\Contact\Controller;
@@ -30,13 +30,6 @@ class Client implements \FOSSBilling\InjectionAwareInterface
         return $this->di;
     }
 
-    /**
-     * Methods maps client areas urls to corresponding methods
-     * Always use your module prefix to avoid conflicts with other modules
-     * in future.
-     *
-     * @param \Box_App $app - returned by reference
-     */
     public function register(\Box_App &$app): void
     {
         $app->get('/contact', 'get_index', [], static::class);
@@ -45,23 +38,17 @@ class Client implements \FOSSBilling\InjectionAwareInterface
 
     public function get_index(\Box_App $app)
     {
-        // Initialize variables
         $error = '';
         $success = '';
 
-        // Capture GET parameter and sanitize the domain
         $domain = filter_input(INPUT_GET, 'domain', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        
-        // Process form submission if it's a POST request
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Capture and sanitize form data
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
             $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            // Validate form data
             if ($name && $email && $message) {
-                // Define sender and recipient
                 $parts = explode('.', $domain);
                 $sld = '';
                 $tld = '';
@@ -94,20 +81,16 @@ class Client implements \FOSSBilling\InjectionAwareInterface
                     'name' => $contact['contact_first_name'] . ' ' . $contact['contact_last_name'],
                 ];
 
-                // Get email settings
                 $mod = $this->di['mod']('email');
                 $settings = $mod->getConfig();
                 $logEnabled = isset($settings['log_enabled']) && $settings['log_enabled'];
                 $transport = $settings['mailer'] ?? 'sendmail';
 
-                // Prepare the email content and transport
                 $mail = new \FOSSBilling\Mail($sender, $recipient, "Contact Domain Registrant: " . $domain, $message, $transport, $settings['custom_dsn'] ?? null);
 
                 try {
-                    // Attempt to send the email
                     $mail->send($settings);
                         
-                    // Log activity if enabled
                     if ($logEnabled) {
                         $activityService = $this->di['mod_service']('activity');
                         $activityService->logEmail("Contact Domain Registrant: " . $domain, null, $email, $contact['contact_email'], $message);
@@ -121,7 +104,6 @@ class Client implements \FOSSBilling\InjectionAwareInterface
                 $error = 'Please fill in all fields with valid information.';
             }
         } else {
-            // Existing GET logic for domain validation
             if ($domain) {
                 $parts = explode('.', $domain);
                 $sld = '';

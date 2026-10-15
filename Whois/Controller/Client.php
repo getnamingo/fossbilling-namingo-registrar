@@ -1,17 +1,17 @@
 <?php
 
-/**
- * FOSSBilling.
+/*
+ * Namingo Registrar
  *
- * @copyright FOSSBilling (https://www.fossbilling.org)
- * @license   Apache-2.0
+ * Copyright (c) 2023-2026 Taras Kondratyuk
+ * Copyright (c) 2025-2026 Namingo contributors
+ * Copyright (c) 2026 Terbora Ltd.
  *
- * Copyright FOSSBilling 2022
- * This software may contain code previously used in the BoxBilling project.
- * Copyright BoxBilling, Inc 2011-2021
+ * Licensed under the Apache License, Version 2.0.
+ * May contain portions of FOSSBilling sample modules, also licensed under Apache-2.0.
+ * See the LICENSE file for the full license text.
  *
- * This source file is subject to the Apache-2.0 License that is bundled
- * with this source code in the file LICENSE
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 namespace Box\Mod\Whois\Controller;
@@ -30,13 +30,6 @@ class Client implements \FOSSBilling\InjectionAwareInterface
         return $this->di;
     }
 
-    /**
-     * Methods maps client areas urls to corresponding methods
-     * Always use your module prefix to avoid conflicts with other modules
-     * in future.
-     *
-     * @param \Box_App $app - returned by reference
-     */
     public function register(\Box_App &$app): void
     {
         $app->get('/whois', 'get_index', [], static::class);

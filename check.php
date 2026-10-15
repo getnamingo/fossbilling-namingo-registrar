@@ -1,4 +1,19 @@
 <?php
+
+/*
+ * Namingo Registrar
+ *
+ * Copyright (c) 2023-2026 Taras Kondratyuk
+ * Copyright (c) 2025-2026 Namingo contributors
+ * Copyright (c) 2026 Terbora Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0.
+ * May contain portions of FOSSBilling sample modules, also licensed under Apache-2.0.
+ * See the LICENSE file for the full license text.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 // ==========================================
 // Start editing below: Add your WHOIS and RDAP server hostnames here
 // ==========================================

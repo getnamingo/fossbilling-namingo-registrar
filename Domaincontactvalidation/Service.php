@@ -1,11 +1,17 @@
 <?php
-/**
- * FOSSBilling Contact Validation (https://fossbilling.org/)
+
+/*
+ * Namingo Registrar
  *
- * Displays ICANN / NIS2-style registrant contact validation tracking
- * Written in 2026 by Taras Kondratyuk (https://namingo.org)
+ * Copyright (c) 2023-2026 Taras Kondratyuk
+ * Copyright (c) 2025-2026 Namingo contributors
+ * Copyright (c) 2026 Terbora Ltd.
  *
- * @license MIT
+ * Licensed under the Apache License, Version 2.0.
+ * May contain portions of FOSSBilling sample modules, also licensed under Apache-2.0.
+ * See the LICENSE file for the full license text.
+ *
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 declare(strict_types=1);
@@ -28,11 +34,6 @@ class Service implements \FOSSBilling\InjectionAwareInterface
         return $this->di;
     }
 
-    /**
-     * Optional staff permissions exposed in FOSSBilling admin group settings.
-     * The module is still admin-only by design; these permissions are available
-     * if you want to restrict management to a smaller staff group later.
-     */
     public function getModulePermissions(): array
     {
         return [
@@ -46,10 +47,6 @@ class Service implements \FOSSBilling\InjectionAwareInterface
         ];
     }
 
-    /**
-     * Install creates the validation table if it does not already exist.
-     * Existing records are preserved.
-     */
     public function install(): bool
     {
         if (!$this->di) {
@@ -81,9 +78,6 @@ class Service implements \FOSSBilling\InjectionAwareInterface
         return true;
     }
 
-    /**
-     * Keep validation records on uninstall for audit/compliance history.
-     */
     public function uninstall(): bool
     {
         return true;
