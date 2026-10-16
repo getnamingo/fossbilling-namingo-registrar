@@ -5,8 +5,9 @@
   "description": "Handles email verification links and confirms registrant contact details for ICANN compliance",
   "icon_url": "icon.svg",
   "homepage_url": "https://namingo.org",
+  "project_url": "https://namingo.org",
   "author": "Namingo",
-  "author_url": "https://namingo.org/",
+  "author_url": "https://namingo.org",
   "license": "Apache 2.0 - https://www.apache.org/licenses/LICENSE-2.0",
-  "version": "1.0.5"
+  "version": "1.3.0"
 }
