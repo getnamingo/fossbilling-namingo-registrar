@@ -120,7 +120,7 @@ if ($type === 'whois') {
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS);
+    curl_setopt($ch, CURLOPT_PROTOCOLS_STR, 'HTTPS');
     curl_setopt($ch, CURLOPT_WRITEFUNCTION, static function ($ch, $data) use (&$output, &$tooLarge) {
         if (strlen($output) + strlen($data) > 1048576) {
             $tooLarge = true;
@@ -136,11 +136,8 @@ if ($type === 'whois') {
     if ($result === false || ($status !== 404 && ($status < 200 || $status >= 300))) {
         http_response_code(502);
         echo json_encode(['error' => $tooLarge ? 'RDAP response too large.' : 'Error fetching RDAP data.']);
-        curl_close($ch);
         exit;
     }
-
-    curl_close($ch);
 
     if (!$output) {
         echo json_encode(['error' => 'Error fetching RDAP data.']);
